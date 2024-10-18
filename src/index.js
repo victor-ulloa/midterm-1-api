@@ -6,6 +6,7 @@
 //
 
 const express = require('express');
+const songRoutes = require('./routes/songRoutes');
 const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file
 require('dotenv').config(); // Load environment variables from .env file
 
@@ -17,6 +18,9 @@ app.use(express.json());
 
 // Connect to the database
 connectToDatabase();
+
+// Use routes
+app.use('/songs', songRoutes); // Song routes
 
 // Basic route
 app.get('/', (req, res) => {
