@@ -36,6 +36,9 @@
         </button>
       </div>
     </div>
+    
+    <!-- Error Message Area -->
+    <div id="error-message" class="text-red-500 mt-4 hidden"></div>
   </div>
 
   <!-- Results Section -->
@@ -48,17 +51,27 @@
     // Function to display results
     function displayResults(data) {
       const results = document.getElementById('results');
+      const errorMessage = document.getElementById('error-message');
       results.textContent = JSON.stringify(data, null, 2);
+      errorMessage.classList.add('hidden'); // Hide error message if present
+    }
+
+    // Function to display error messages
+    function displayError(message) {
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.textContent = message;
+      errorMessage.classList.remove('hidden'); // Show error message
     }
 
     // Fetch all songs
     document.getElementById('getAllSongs').addEventListener('click', async () => {
       try {
         const response = await fetch('/songs');
+        if (!response.ok) throw new Error('Failed to fetch songs');
         const data = await response.json();
         displayResults(data);
       } catch (error) {
-        console.error('Error fetching all songs:', error);
+        displayError('Error fetching all songs: ' + error.message);
       }
     });
 
@@ -68,13 +81,14 @@
       if (songId) {
         try {
           const response = await fetch(`/songs/${songId}`);
+          if (!response.ok) throw new Error('Song not found');
           const data = await response.json();
           displayResults(data);
         } catch (error) {
-          console.error(`Error fetching song with ID ${songId}:`, error);
+          displayError('Error fetching song with ID ' + songId + ': ' + error.message);
         }
       } else {
-        alert('Please enter a Song ID');
+        displayError('Please enter a Song ID');
       }
     });
 
@@ -84,13 +98,14 @@
       if (artistName) {
         try {
           const response = await fetch(`/songs/artist/${artistName}`);
+          if (!response.ok) throw new Error('No songs found for this artist');
           const data = await response.json();
           displayResults(data);
         } catch (error) {
-          console.error(`Error fetching songs by artist ${artistName}:`, error);
+          displayError('Error fetching songs by artist ' + artistName + ': ' + error.message);
         }
       } else {
-        alert('Please enter an Artist Name');
+        displayError('Please enter an Artist Name');
       }
     });
   </script>
