@@ -22,6 +22,13 @@ async function getAllSongs() {
   return await songsCollection.find({}).toArray();
 }
 
+// Fetch recipe by ID
+async function getSongById(id) {
+    const songsCollection = await getSongsCollection();
+    return await songsCollection.findOne({ songId: id });
+  }
+
 module.exports = {
   getAllSongs,
+  getSongById
 };
