@@ -10,14 +10,65 @@
   <p>Use the buttons below to fetch data from the songs API:</p>
    
   <button id="getAllSongs">Get All Songs</button>
+  <br><br>
+  <input type="text" id="songId" placeholder="Enter Song ID">
   <button id="getSongById">Get Song By ID</button>
+  <br><br>
+  <input type="text" id="artistName" placeholder="Enter Artist Name">
   <button id="getSongsByArtist">Get Songs By Artist</button>
    
   <h2>Results:</h2>
   <pre id="results"></pre>
    
   <script>
-    // Implement the JavaScript code to fetch data from the API here
+    // Function to display results
+    function displayResults(data) {
+      const results = document.getElementById('results');
+      results.textContent = JSON.stringify(data, null, 2);
+    }
+
+    // Fetch all songs
+    document.getElementById('getAllSongs').addEventListener('click', async () => {
+      try {
+        const response = await fetch('/songs');
+        const data = await response.json();
+        displayResults(data);
+      } catch (error) {
+        console.error('Error fetching all songs:', error);
+      }
+    });
+
+    // Fetch song by ID
+    document.getElementById('getSongById').addEventListener('click', async () => {
+      const songId = document.getElementById('songId').value;
+      if (songId) {
+        try {
+          const response = await fetch(`/songs/${songId}`);
+          const data = await response.json();
+          displayResults(data);
+        } catch (error) {
+          console.error(`Error fetching song with ID ${songId}:`, error);
+        }
+      } else {
+        alert('Please enter a Song ID');
+      }
+    });
+
+    // Fetch song by artist name
+    document.getElementById('getSongsByArtist').addEventListener('click', async () => {
+      const artistName = document.getElementById('artistName').value;
+      if (artistName) {
+        try {
+          const response = await fetch(`/songs/artist/${artistName}`);
+          const data = await response.json();
+          displayResults(data);
+        } catch (error) {
+          console.error(`Error fetching songs by artist ${artistName}:`, error);
+        }
+      } else {
+        alert('Please enter an Artist Name');
+      }
+    });
   </script>
 </body>
 </html>
