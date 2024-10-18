@@ -22,9 +22,9 @@ async function getAllSongs(req, res) {
 async function getSongById(req, res) {
   try {
     const songId = parseInt(req.params.id); // Convert the ID from string to integer
-    const recipe = await songModel.getSongById(songId);
-    if (recipe) {
-      res.json(recipe);
+    const song = await songModel.getSongById(songId);
+    if (song) {
+      res.json(song);
     } else {
       res.status(404).json({ message: 'Song not found' });
     }
@@ -38,9 +38,9 @@ async function getSongById(req, res) {
 async function getSongByArtistName(req, res) {
   try {
     const artistName = req.params.name; 
-    const recipe = await songModel.getSongByArtistName(artistName);
-    if (recipe) {
-      res.json(recipe);
+    const song = await songModel.getSongByArtistName(artistName);
+    if (song) {
+      res.json(song);
     } else {
       res.status(404).json({ message: 'Song not found' });
     }

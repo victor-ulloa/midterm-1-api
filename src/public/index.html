@@ -4,22 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Songs API</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Songs API</h1>
-  <p>Use the buttons below to fetch data from the songs API:</p>
-   
-  <button id="getAllSongs">Get All Songs</button>
-  <br><br>
-  <input type="text" id="songId" placeholder="Enter Song ID">
-  <button id="getSongById">Get Song By ID</button>
-  <br><br>
-  <input type="text" id="artistName" placeholder="Enter Artist Name">
-  <button id="getSongsByArtist">Get Songs By Artist</button>
-   
-  <h2>Results:</h2>
-  <pre id="results"></pre>
-   
+<body class="bg-gray-900 text-white min-h-screen flex">
+  <div class="bg-gray-800 p-8 max-w-md w-full">
+    <h1 class="text-3xl font-bold text-center text-blue-400 mb-6">Songs API</h1>
+    <p class="text-gray-300 text-center mb-6">Use the buttons below to fetch data from the songs API:</p>
+
+    <!-- Get All Songs Button -->
+    <div class="flex flex-col space-y-4">
+      <button id="getAllSongs" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 transition">
+        Get All Songs
+      </button>
+
+      <!-- Get Song By ID -->
+      <div>
+        <input type="text" id="songId" placeholder="Enter Song ID"
+          class="w-full p-2 border border-gray-600 bg-gray-700 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2">
+        <button id="getSongById" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 transition w-full">
+          Get Song By ID
+        </button>
+      </div>
+
+      <!-- Get Songs By Artist -->
+      <div>
+        <input type="text" id="artistName" placeholder="Enter Artist Name"
+          class="w-full p-2 border border-gray-600 bg-gray-700 rounded focus:outline-none focus:ring focus:border-blue-500 mb-2">
+        <button id="getSongsByArtist" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-500 transition w-full">
+          Get Songs By Artist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="flex-grow p-8 bg-gray-850">
+    <h2 class="text-xl font-semibold text-gray-300 mt-8">Results:</h2>
+    <pre id="results" class="bg-gray-800 p-4 rounded mt-4 text-sm overflow-x-auto"></pre>
+  </div>
+
   <script>
     // Function to display results
     function displayResults(data) {

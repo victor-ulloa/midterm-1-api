@@ -12,10 +12,10 @@ const songController = require('../controllers/songController');
 // Route to get all song
 router.get('/', songController.getAllSongs);
 
-// Route to get recipe by ID
+// Route to get song by ID
 router.get('/:id', songController.getSongById);
 
-// Route to get recipe by ID
+// Route to get song by ID
 router.get('/artist/:name', songController.getSongByArtistName);
 
 module.exports = router;
