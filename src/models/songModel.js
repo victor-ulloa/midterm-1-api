@@ -13,7 +13,7 @@ async function getSongsCollection() {
   if (!client) {
     client = await connectToDatabase();
   }
-  return client.db('midterm').collection('songs'); 
+  return client.db('midterm').collection('songs');
 }
 
 // Fetch all songs
@@ -22,13 +22,20 @@ async function getAllSongs() {
   return await songsCollection.find({}).toArray();
 }
 
-// Fetch recipe by ID
+// Fetch song by ID
 async function getSongById(id) {
-    const songsCollection = await getSongsCollection();
-    return await songsCollection.findOne({ songId: id });
-  }
+  const songsCollection = await getSongsCollection();
+  return await songsCollection.findOne({ songId: id });
+}
+
+// Fetch song by artist name
+async function getSongByArtistName(name) {
+  const songsCollection = await getSongsCollection();
+  return await songsCollection.findOne({ "artistData.name": name });
+}
 
 module.exports = {
   getAllSongs,
-  getSongById
+  getSongById,
+  getSongByArtistName
 };

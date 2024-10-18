@@ -15,4 +15,7 @@ router.get('/', songController.getAllSongs);
 // Route to get recipe by ID
 router.get('/:id', songController.getSongById);
 
+// Route to get recipe by ID
+router.get('/artist/:name', songController.getSongByArtistName);
+
 module.exports = router;
