@@ -6,6 +6,7 @@
 //
 
 const express = require('express');
+const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file
 require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
@@ -13,6 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+
+// Connect to the database
+connectToDatabase();
 
 // Basic route
 app.get('/', (req, res) => {
