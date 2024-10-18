@@ -7,8 +7,8 @@
 
 const express = require('express');
 const songRoutes = require('./routes/songRoutes');
-const connectToDatabase = require('./config/database'); // Optional if you handle DB connection in a separate file
-require('dotenv').config(); // Load environment variables from .env file
+const connectToDatabase = require('./config/database'); 
+require('dotenv').config(); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,15 +16,18 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
+// Serve static files from the "public" directory
+app.use(express.static('public'));
+
 // Connect to the database
 connectToDatabase();
 
 // Use routes
-app.use('/songs', songRoutes); // Song routes
+app.use('/songs', songRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.sendFile(__dirname + '/public/index.html'); // Serve the index.html file
 });
 
 // Start the server
